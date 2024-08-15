@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll-Triggered Animated Card</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            height: 2000px; /* Added height for scrolling */
+        }
+
+        .card-container {
+            position: fixed;
+            left: -350px; /* Start off-screen to the left */
+            top: 20px;
+            width: 300px;
+            transition: left 0.5s ease, top 0.5s ease;
+        }
+
+        .card-container.show-left {
+            left: 20px; /* Slide in from the left */
+        }
+
+        .card-container.hide-top {
+            top: -350px; /* Move off-screen to the top */
+        }
+    </style>
+</head>
+<body>
+    <!-- Content -->
+    <div class="container py-5">
+        <h1>Welcome to My Website</h1>
+        <p>Scroll down to see the animated card.</p>
+        <p>Keep scrolling to hide and show the card as you explore the content.</p>
+    </div>
+
+    <!-- Card -->
+    <div id="animatedCard" class="card card-container">
+        <img src="https://via.placeholder.com/300x150" class="card-img-top" alt="Card Image">
+        <div class="card-body">
+            <h5 class="card-title">Animated Card</h5>
+            <p class="card-text">This card slides in from the left when you scroll and moves up when you scroll further.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        const card = document.getElementById('animatedCard');
+        const triggerScroll = 300; // Adjust this value as needed
+        const hideScroll = 600;    // Adjust this value as needed
+
+        window.addEventListener('scroll', function () {
+            const scrollY = window.scrollY;
+
+            if (scrollY > triggerScroll && scrollY < hideScroll) {
+                card.classList.add('show-left');
+                card.classList.remove('hide-top');
+            } else if (scrollY >= hideScroll) {
+                card.classList.add('hide-top');
+                card.classList.remove('show-left');
+            } else {
+                card.classList.remove('show-left');
+                card.classList.remove('hide-top');
+            }
+        });
+    </script>
+</body>
+</html>
